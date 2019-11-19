@@ -2,12 +2,14 @@ package com.github.pedrobacchinni.initjpql.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@ToString
 @Table(name="\"user\"")
 @EqualsAndHashCode(of = "id")
 public class User {
