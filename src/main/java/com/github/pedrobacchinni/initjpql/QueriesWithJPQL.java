@@ -17,8 +17,7 @@ public class QueriesWithJPQL {
         entityManagerFactory.close();
     }
 
-    private static void FirstQuery(EntityManager entityManager)
-    {
+    private static void FirstQuery(EntityManager entityManager) {
         TypedQuery<User> typedQuery = entityManager.createQuery("select u from User u", User.class);
         List<User> resultList = typedQuery.getResultList();
         resultList.forEach(System.out::println);
