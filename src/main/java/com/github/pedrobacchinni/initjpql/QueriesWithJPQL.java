@@ -1,5 +1,6 @@
 package com.github.pedrobacchinni.initjpql;
 
+import com.github.pedrobacchinni.initjpql.model.Domain;
 import com.github.pedrobacchinni.initjpql.model.User;
 
 import javax.persistence.*;
@@ -11,10 +12,24 @@ public class QueriesWithJPQL {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Users-PU");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        FirstQuery(entityManager);
+//        FirstQuery(entityManager);
+        choiceReturn(entityManager);
 
         entityManager.close();
         entityManagerFactory.close();
+    }
+
+    public static void choiceReturn(EntityManager entityManager) {
+        String jpql = "select u.domain from User u where u.id = 3";
+        TypedQuery<Domain> typedQueryList = entityManager.createQuery(jpql, Domain.class);
+        Domain domain = typedQueryList.getSingleResult();
+        System.out.println(domain);
+
+
+        String jpqlName = "select u.name from User u";
+        TypedQuery<String> typedQueryListName = entityManager.createQuery(jpqlName, String.class);
+        List<String> names = typedQueryListName.getResultList();
+        names.forEach(System.out::println);
     }
 
     private static void FirstQuery(EntityManager entityManager) {
