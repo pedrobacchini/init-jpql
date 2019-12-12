@@ -2,6 +2,7 @@ package com.github.pedrobacchinni.initjpql.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@ToString
 @EqualsAndHashCode(of = "id")
 public class Domain {
 
@@ -19,5 +21,6 @@ public class Domain {
     private String name;
 
     @OneToMany(mappedBy = "domain")
+    @ToString.Exclude
     private List<User> users;
 }
