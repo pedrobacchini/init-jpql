@@ -2,6 +2,7 @@ package com.github.pedrobacchinni.initjpql;
 
 import com.github.pedrobacchinni.initjpql.model.Domain;
 import com.github.pedrobacchinni.initjpql.model.User;
+import com.github.pedrobacchinni.initjpql.model.UserDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,10 +14,23 @@ public class QueriesWithJPQL {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 //        FirstQuery(entityManager);
-        choiceReturn(entityManager);
+//        choiceReturn(entityManager);
+        doProjections(entityManager);
 
         entityManager.close();
         entityManagerFactory.close();
+    }
+
+    public static void doProjections(EntityManager entityManager) {
+        String jpqlArray = "select id, username, name  from User";
+        TypedQuery<Object[]> typedQueryArray = entityManager.createQuery(jpqlArray, Object[].class);
+        List<Object[]> listObjects = typedQueryArray.getResultList();
+        listObjects.forEach(objects -> System.out.println(String.format("%s %s %s", objects)));
+
+        String jpqlDto = "select id, username, name  from User";
+        TypedQuery<UserDTO> typedQueryDto = entityManager.createQuery(jpqlDto, UserDTO.class);
+        List<UserDTO> userDTOS = typedQueryDto.getResultList();
+        userDTOS.forEach(System.out::println);
     }
 
     public static void choiceReturn(EntityManager entityManager) {
